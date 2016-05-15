@@ -1,0 +1,56 @@
+
+# Equals to @b3 constants (which corresponds to a biolab 2)
+@upkeep = 2
+@time = 180
+@cost = 90
+@influence = 20
+@science = 3
+
+# Bonus for the planet's tiles
+@bonus = 0.1
+
+
+building_physics_academia = {
+	base_buildtime = @time
+	empire_unique = yes
+	ai_special_building = yes
+
+	cost = {
+		minerals = @cost
+		influence = @influence
+	}
+
+	required_resources = {
+		energy = @upkeep
+	}
+
+	prerequisites = {
+		"tech_academia"
+	}
+
+	allow = {
+		custom_tooltip = {
+			text = "requires_building_capital_2"
+			planet = {
+				OR = {
+					has_building = "building_capital_2"
+					has_building = "building_capital_3"
+				}
+			}
+		}
+	}
+
+	produced_resources = {
+		physics_research = @science
+	}
+
+	# planet_modifier = {
+	# 	tile_resource_physics_research_mult = @bonus
+	# }
+
+}
+
+
+# Local Variables:
+# mode: paradox
+# End:

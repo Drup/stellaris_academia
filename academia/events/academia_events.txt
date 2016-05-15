@@ -1,0 +1,130 @@
+
+namespace = academia
+
+planet_event = {
+	id = academia.1
+	title = "Physics academia focus"
+	desc = "Decide the focus of the academia"
+	picture = GFX_evt_physics_research
+	show_sound = event_laboratory_sound
+	location = root
+	is_triggered_only = yes
+
+	immediate = {
+		remove_modifier = "academia_voidcraft_focus"
+		remove_modifier = "academia_industry_focus"
+		remove_modifier = "academia_field_manipulation_focus"
+		remove_modifier = "academia_particles_focus"
+		remove_modifier = "academia_computing_focus"
+	}
+
+	option = {
+		name = voidcraft
+		add_modifier = {
+			modifier = "academia_voidcraft_focus"
+			days = -1
+		}
+	}
+	option = {
+		name = industry
+		add_modifier = {
+			modifier = "academia_industry_focus"
+			days = -1
+		}
+	}
+	option = {
+		name = field_manipulation
+		add_modifier = {
+			modifier = "academia_field_manipulation_focus"
+			days = -1
+		}
+	}
+	option = {
+		name = particles
+		add_modifier = {
+			modifier = "academia_particles_focus"
+			days = -1
+		}
+	}
+	option = {
+		name = computing
+		add_modifier = {
+			modifier = "academia_computing_focus"
+			days = -1
+		}
+	}
+
+}
+
+
+planet_event = {
+	id = academia.2
+	title = "Great scientist"
+	desc = "A new great scientist"
+	picture = GFX_evt_psionics
+	show_sound = event_laboratory_sound
+	location = root
+
+	trigger = {
+		OR = {
+			has_building = building_physics_academia
+			has_building = building_engineering_academia
+			has_building = building_society_academia
+		}
+		OR = {
+			has_modifier = academia_voidcraft_focus
+			has_modifier = academia_industry_focus
+			has_modifier = academia_field_manipulation_focus
+			has_modifier = academia_particles_focus
+			has_modifier = academia_computing_focus
+		}
+	}
+
+	# The mtth is set to a bit less than half a leader's life
+	mean_time_to_happen = {
+		days = 3 # For testing
+		# months = 360
+	}
+
+	option = {
+		name = new_great_scientist
+		owner = {
+			create_leader = {
+				type = scientist
+				species = owner_main_species
+				name = random
+				skill = 301
+			}
+		}
+		switch = {
+			trigger = has_modifier
+			academia_voidcraft_focus = {
+				last_created_leader = { add_trait = leader_trait_expertise_voidcraft }
+			}
+			academia_industry_focus = {
+				last_created_leader = { add_trait = leader_trait_expertise_industry }
+			}
+			academia_field_manipulation_focus = {
+				last_created_leader = { add_trait = leader_trait_expertise_field_manipulation }
+			}
+			academia_particles_focus = {
+				last_created_leader = { add_trait = leader_trait_expertise_particles }
+			}
+			academia_computing_focus = {
+				last_created_leader = { add_trait = leader_trait_expertise_computing }
+			}
+		}
+
+		# Allow to change focus in a few days
+		planet_event = { id = academia.1 days = 10 }
+
+	}
+
+}
+
+
+
+
+# Local Variables:
+# mode: paradox
+# End:
